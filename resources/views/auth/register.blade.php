@@ -23,6 +23,19 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('type_user') ? ' has-error' : '' }}">
+                            <label for="type_user" class="col-md-4 control-label">Type User</label>
+
+                            <div class="col-md-6">
+                                <input id="type_user" type="type_user" class="form-control" name="type_user" value="{{ old('type_user') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>

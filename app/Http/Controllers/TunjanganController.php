@@ -122,5 +122,8 @@ class TunjanganController extends Controller
     public function destroy($id)
     {
         //
+
+        Tunjangan::find($id)->delete();
+        return redirect ('tunjangan');
     }
 }

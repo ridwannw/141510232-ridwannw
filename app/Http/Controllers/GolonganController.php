@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Request;
 use App\Golongan;
 
+
+
 class GolonganController extends Controller
 {
     /**
@@ -12,10 +14,14 @@ class GolonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
-         $golongan =Golongan::all();
+         $golongan =Golongan::paginate(2);
          return view('Golongan.index',compact('golongan'));
     }
 

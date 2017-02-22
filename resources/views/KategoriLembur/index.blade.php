@@ -5,11 +5,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-black panel-primary">
-                <div class="panel-heading"><h3>Kategori Lembur</h3></div>
-
-                <div class="panel-body">
-                    <center><a href="{{route('kategori.create')}}" class="btn btn-success">Tambah Data</a></center>
-                    
+                <div class="panel-heading">Kategori Lembur</div>
+                <br>
+                <div align=right class="Tanggal"><h4><script language="JavaScript">document.write(tanggallengkap);</script></div></h4>
+                
+                    <a href="{{route('kategori.create')}}" class="btn btn-success">Tambah Data Kategori</a>
+                   
 	<br>
 	<br>
 	<table class="table table-bordered">

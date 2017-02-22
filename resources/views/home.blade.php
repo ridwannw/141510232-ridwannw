@@ -8,7 +8,10 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    Hello = {{Auth::user()->name}}<br>
+                    Email Anda Adalah = {{Auth::user()->email}}<br>
+                    Type Login Anda Sebagai = {{Auth::user()->type_user}}
+                    </div>
                 </div>
             </div>
         </div>

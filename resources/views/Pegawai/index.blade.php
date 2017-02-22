@@ -6,12 +6,11 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">PEGAWAI</div>
-
-                <div class="panel-body panel-primary">
-                    <center><a href="{{route('pegawai.create')}}" class="btn btn-success">Tambah Data</a></center>
-                    
+                <br>
+                <div align=right class="Tanggal"><h4><script language="JavaScript">document.write(tanggallengkap);</script></div></h4>
                
-	<br>
+                    <a href="{{route('pegawai.create')}}" class="btn btn-success">Tambah Data Pegawai</a>
+    <br>            
 	<br>
 	<table class="table table-bordered">
 		<thead>
@@ -30,19 +29,18 @@
 		@php
 		$no = 1;
 		@endphp
-		@foreach($pegawai as $data)
+		@foreach($pegawai as $pegawai1)
 		<tbody>
 			<tr>
 				<td>{{$no++}}</td>
-				<td>{{$data->nip}}</td>
-				<td>{{$data->User->name}}</td>
-				<td>{{$data->Jabatan->nama_jabatan}}</td>
-				<td>{{$data->Golongan->nama_golongan}}</td>
-				<td><img src="{{ asset('gambar/'.$data->photo.'') }}" width="30" height="30"></td>
-				<td><center><a href="{{route('pegawai.show', $data->id)}}" class="btn btn-primary">Lihat</a></center></td>
-				<td><center><a href="{{route('pegawai.edit', $data->id)}}" class="btn btn-warning">Edit</a></center></td>
+				<td>{{$pegawai1->nip}}</td>
+				<td>{{$pegawai1->User->name}}</td>
+				<td>{{$pegawai1->Jabatan->nama_jabatan}}</td>
+				<td>{{$pegawai1->Golongan->nama_golongan}}</td>
+				<td><img src="{{ asset('gambar/'.$pegawai1->photo.'') }}" width="30" height="30"></td>
+				<td><center><a href="{{route('pegawai.edit', $pegawai1->id)}}" class="btn btn-warning">Edit</a></center></td>
 				<td><center>
-					<form method="POST" action="{{route('pegawai.destroy', $data->id)}}">
+					<form method="POST" action="{{route('pegawai.destroy', $pegawai1->id)}}">
 					{{csrf_field()}}
 					<input type="hidden" name="_method" value="DELETE">
 					<input class="btn btn-danger" onclick="return confirm('Yakin Mau Menghapus Data? ');" type="submit" value="Hapus"></form>

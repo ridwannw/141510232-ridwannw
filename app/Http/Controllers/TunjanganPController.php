@@ -128,6 +128,7 @@ class TunjanganPController extends Controller
      */
     public function destroy($id)
     {
-        //
+        TunjanganPegawai::find($id);
+        return redirect('tunjanganpegawai');
     }
 }

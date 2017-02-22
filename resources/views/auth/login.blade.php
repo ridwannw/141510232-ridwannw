@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<br>
+<br>
+<br>
+<body background="gambar/banner-bg.jpg">
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <h2 class="form-signin-heading"><center><span class="icon.img icon-th-large"></span> Welcome To ApeK</center></h2>
+           <br> 
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
@@ -57,6 +62,11 @@
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
                                 </a>
+                                <br />
+    <br />
+    <br />
+    <br />
+    <h5 class="form-signin">Copyright &copy; <a href=url('\') data-toggle="modal" data-target="#contact">SMKN Assalaam Bandung</a></h5>
                             </div>
                         </div>
                     </form>
@@ -65,4 +75,7 @@
         </div>
     </div>
 </div>
+ <br />
+   
+    
 @endsection

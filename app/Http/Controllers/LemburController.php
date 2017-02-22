@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Request;
 use App\LemburPegawai;
-use App\KategoriLembur;
 use App\Pegawai;
+use App\KategoriLembur;
 use Validator;
 
 class LemburController extends Controller
@@ -29,9 +29,9 @@ class LemburController extends Controller
      */
     public function create()
     {
+        $kategori = Kategorilembur::all();
         $pegawai = Pegawai::all();
-        $kategori = KategoriLembur::all();
-        return view('lembur.create', compact('pegawai','katgeori'));
+        return view('lembur.create',compact('kategori','pegawai'));
     }
 
     /**
@@ -59,7 +59,7 @@ class LemburController extends Controller
         }
 
         $lembur = Request::all();
-        LemburPegawai::create($lp);
+        LemburPegawai::create($lembur);
         return redirect('lembur');    }
 
     /**

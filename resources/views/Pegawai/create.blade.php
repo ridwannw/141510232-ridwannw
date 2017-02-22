@@ -66,7 +66,7 @@
                                 <select name="type_user" class="form-control">
                                     <option value="">---Pilih---</option>
                                     <option value="Admin">Admin</option>
-                                    <option value="HRD">HRD</option>
+                                    <option value="Hrd">HRD</option>
                                     <option value="Keuangan">Keuangan</option>
                                     <option value="Pegawai">Pegawai</option>
                                 </select>

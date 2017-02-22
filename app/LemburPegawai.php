@@ -14,8 +14,8 @@ class LemburPegawai extends Model
     {
     	return $this->belongsTo('App\Pegawai','pegawai_id');
     }
-    public function Kategori_lembur()
+    public function KategoriLembur()
     {
-    	return $this->belongsTo('App\Kategori_lembur','kode_lembur_id');
+    	return $this->belongsTo('App\KategoriLembur','kode_lembur_id');
     }
 }

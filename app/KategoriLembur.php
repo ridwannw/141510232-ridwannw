@@ -10,11 +10,11 @@ class KategoriLembur extends Model
     protected $fillable = array('kode_lembur','jabatan_id','golongan_id','besaran_uang','created_at','updated');
     protected $visible = array('kode_lembur','jabatan_id','golongan_id','besaran_uang','created_at','updated');
 
-    public function jabatan()
+    public function Jabatan()
     {
     	return $this->belongsTo('App\Jabatan','jabatan_id');
     }
-    public function golongan()
+    public function Golongan()
     {
     	return $this->belongsTo('App\Golongan','golongan_id');
     }

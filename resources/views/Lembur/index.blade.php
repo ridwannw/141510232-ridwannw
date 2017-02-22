@@ -4,11 +4,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-black">
-               <div class="panel-heading">Lembur Pegawai</div>
-
-                <div class="panel-body">
-                    <center><a href="{{route('lembur.create')}}" class="btn btn-success">Tambah Data</a></center>
+            <div class="panel panel-black panel-primary">
+                <div class="panel-heading">Lembur Pegawai</div>
+                <br>
+                <div align=right class="Tanggal"><h4><script language="JavaScript">document.write(tanggallengkap);</script></div></h4>
+                
+                    <a href="{{route('lembur.create')}}" class="btn btn-success">Tambah Data Lembur</a>
                     
 	<br>
 	<br>

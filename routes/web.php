@@ -12,14 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 Route::resource('jabatan','JabatanController');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::resource('/golongan','GolonganController');
+Route::resource('golongan','GolonganController@index');
 Route::resource('/pegawai','PegawaiController');
 Route::resource('/tunjangan','TunjanganController');
 Route::resource('tunjanganpegawai','TunjanganPController');
