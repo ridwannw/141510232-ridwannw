@@ -19,9 +19,10 @@ Route::resource('jabatan','JabatanController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::resource('golongan','GolonganController@index');
+Route::resource('golongan','GolonganController');
 Route::resource('/pegawai','PegawaiController');
 Route::resource('/tunjangan','TunjanganController');
 Route::resource('tunjanganpegawai','TunjanganPController');
 Route::resource('kategori','KategoriLemburController');
 Route::resource('lembur','LemburController');
+Route::resource('penggajian','PenggajianController');

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Request;
 use App\Golongan;
-
-
+use App\Jabatan;
+use Validator;
 
 class GolonganController extends Controller
 {
@@ -14,15 +14,16 @@ class GolonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
+    public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
     }
     public function index()
     {
         //
-         $golongan =Golongan::paginate(2);
-         return view('Golongan.index',compact('golongan'));
+        $golongan = Golongan::all();
+        $jabatan = Jabatan::all();
+        return view('Golongan.index',compact('golongan','jabatan'));
     }
 
     /**
@@ -33,7 +34,8 @@ class GolonganController extends Controller
     public function create()
     {
         //
-        return view('Golongan.create');
+        $golongan = Golongan::all();
+        return view ('Golongan.create',compact('golongan'));
     }
 
     /**
@@ -44,10 +46,27 @@ class GolonganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $golongan = array (
+            'kode_golongan'=>'required|unique:golongans',
+            'nama_golongan'=>'required',
+            'besaran_uang'=>'required',
+            );
+        $pesan = array(
+            'kode_golongan.required' =>'Need request Object',
+            'nama_golongan.required' =>'Need request Object',
+            'besaran_uang.required' =>'Need request Object',
+            );
+
+        $validation = Validator::make(Request::all(), $golongan, $pesan);
+
+        if($validation->fails())
+        {
+            return redirect('golongan/create')->withErrors($validation)->withInput();
+        }
+
         $golongan = Request::all();
         Golongan::create($golongan);
-        return redirect ('golongan');
+        return redirect('jabatan');
     }
 
     /**
@@ -69,8 +88,9 @@ class GolonganController extends Controller
      */
     public function edit($id)
     {
-        $golongan  = Golongan::find($id);
-        return view('Golongan.edit',compact('golongan'));
+        //
+        $golongan = Golongan::find($id);
+        return view ('Golongan.edit',compact('golongan'));
     }
 
     /**
@@ -82,6 +102,35 @@ class GolonganController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = Golongan::find($id);
+        if($id->kode_golongan == Request('kode_golongan'))
+        {
+            $golongan = array (
+                    'kode_golongan'=>'required',
+                    'nama_golongan'=>'required',
+                    'besaran_uang'=>'required',
+            );
+        }
+        else {
+            $golongan = array (
+                    'kode_golongan'=>'required|unique:golongans',
+                    'nama_golongan'=>'required',
+                    'besaran_uang'=>'required',
+            );
+        }
+        $pesan = array(
+            'kode_golongan.unique' => 'Maaf Sudah Ada',
+            'kode_golongan.required' =>'Harus Diisi broo',
+            'nama_golongan.required' =>'Harus Diisi broo',
+            'besaran_uang.required' =>'Harus Diisi broo',
+            );
+
+        $validation = Validator::make(Request::all(), $golongan, $pesan);
+        if($validation->fails())
+        {
+            return redirect('golongan/'.$id.'/edit')->withErrors($validation)->withInput();
+        }
+
         $golong = Request::all();
         $golongan = Golongan::find($id);
         $golongan->update($golong);
@@ -96,7 +145,6 @@ class GolonganController extends Controller
      */
     public function destroy($id)
     {
-        //
         Golongan::find($id)->delete();
         return redirect('golongan');
     }

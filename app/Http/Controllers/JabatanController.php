@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Request;
 use App\Jabatan;
 use Validator;
+use App\Golongan;
+
 
 class JabatanController extends Controller
 {
@@ -13,6 +15,10 @@ class JabatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+    {
+        $this->middleware('admin');
+    }
     public function index()
     {
         //
@@ -29,7 +35,8 @@ class JabatanController extends Controller
     public function create()
     {
         $jabatan = Jabatan::all();
-        return view('Jabatan.create',compact('jabatan'));
+        $golongan = Golongan::all();
+        return view('Jabatan.create',compact('jabatan','golongan'));
     }
 
     /**
@@ -41,6 +48,24 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
        
+        $jabatan = array (
+            'kode_jabatan'=>'required|unique:jabatans',
+            'nama_jabatan'=>'required',
+            'besaran_uang'=>'required',
+            );
+        $pesan = array(
+            'kode_jabatan.required' =>'Need request Object',
+            'nama_jabatan.required' =>'Need request Object',
+            'besaran_uang.required' =>'Need request Object',
+            );
+
+        $validation = Validator::make(Request::all(), $jabatan, $pesan);
+
+        if($validation->fails())
+        {
+            return redirect('jabatan/create')->withErrors($validation)->withInput();
+        }
+
         $jabatan = Request::all();
         Jabatan::create($jabatan);
         

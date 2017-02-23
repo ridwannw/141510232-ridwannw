@@ -18,6 +18,9 @@ class Keuangan
        if (auth()->check() && $request->user()->type_user=='Keuangan') {
             return $next($request);
         }
+        elseif (auth()->check() && $request->user()->type_user=='Admin') {
+            return $next($request);
+        }
         else{
       
         return redirect()->guest('/akses');

@@ -6,8 +6,10 @@ use Request;
 use App\Jabatan;
 use App\Golongan;
 use App\Tunjangan;
+use App\Pegawai;
 use Input;
 use Validator;
+
 
 
 class TunjanganController extends Controller
@@ -17,6 +19,10 @@ class TunjanganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('keuangan');
+    }
     public function index()
     {
         //
@@ -37,7 +43,8 @@ class TunjanganController extends Controller
         $jabatan = Jabatan::all();
         $golongan = Golongan::all();
         $tunjangan = Tunjangan::all();
-        return view ('Tunjangan.create',compact('jabatan','golongan','tunjangan'));
+        $pegawai = Pegawai::all();
+        return view ('Tunjangan.create',compact('jabatan','golongan','tunjangan','pegawai'));
     }
 
     /**
@@ -48,32 +55,25 @@ class TunjanganController extends Controller
      */
     public function store(Request $request)
     {
-        $tunjangan = array (
-            'kode_tunjangan'=>'required|unique:tunjangans',
-            'jabatan_id'=>'required',
-            'golongan_id'=>'required',
-            'status'=>'required',
-            'jumlah_anak'=>'required',
-            'besaran_uang'=>'required',
-            );
-        $pesan = array(
-            'kode_tunjangan.required' =>'Harus Diisi broo',
-            'jabatan_id.required' =>'Harus Diisi broo',
-            'golongan_id.required' =>'Harus Diisi broo',
-            'status.required' =>'Harus Diisi broo',
-            'jumlah_anak.required' =>'Harus Diisi broo',
-            'besaran_uang.required' =>'Harus Diisi broo',
-            );
-
-        $validation = Validator::make(Request::all(), $tunjangan, $pesan);
-
-        if($validation->fails())
-        {
-            return redirect('tunjangan/create')->withErrors($validation)->withInput();
-        }
-        $tunjangan = Request::all();
-        Tunjangan::create($tunjangan);
-        return redirect('tunjangan');
+                    $tunjangan =['kode_tunjangan' => 'required|unique:tunjangans',
+                    'jumlah_anak' => 'required|numeric|min:0',
+                    'besaran_uang'=> 'required|numeric|min:0'];
+        $message =['kode_tunjangan.required' => 'Silahkan Input',
+                    'kode_tunjangan.unique' => 'Gunakan kode Lain',
+                    'jumlah_anak.required' => 'Silahkan Input',                    
+                    'jumlah_anak.numeric'=>'Input Numerik',
+                    'jumlah_anak.min'=>'Minimal 0',
+                    'besaran_uang.required'=>'Silahkan Input',
+                    'besaran_uang.numeric'=>'Input Numerik',
+                    'besaran_uang.min'=>'Minimal 0'];
+    
+            $validate=Validator::make(Input::all(),$tunjangan,$message);
+            if ($validate->fails()) {
+                return redirect('tunjangan/create')->withErrors($validate)->withInput();
+            }
+            $tunjangan=Request::all();
+            Tunjangan::create($tunjangan);
+            return redirect('tunjangan');
     }
 
     /**

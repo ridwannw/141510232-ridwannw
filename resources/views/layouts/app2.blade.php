@@ -19,36 +19,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-     <script type="text/javascript">
-// 1 detik = 1000
-window.setTimeout("waktu()",1000);  
-function waktu() {   
-    var tanggal = new Date();  
-    setTimeout("waktu()",1000);  
-    document.getElementById("output").innerHTML = tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();
-}
-</script>
-<script language="JavaScript">
-var tanggallengkap = new String();
-var namahari = ("Minggu Senin Selasa Rabu Kamis Jumat Sabtu");
-namahari = namahari.split(" ");
-var namabulan = ("Januari Februari Maret April Mei Juni Juli Agustus September Oktober November Desember");
-namabulan = namabulan.split(" ");
-var tgl = new Date();
-var hari = tgl.getDay();
-var tanggal = tgl.getDate();
-var bulan = tgl.getMonth();
-var tahun = tgl.getFullYear();
-tanggallengkap = namahari[hari] + ", " +tanggal + " " + namabulan[bulan] + " " + tahun;
-
-    var popupWindow = null;
-    function centeredPopup(url,winName,w,h,scroll){
-    LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
-    TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
-    settings ='height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
-    popupWindow = window.open(url,winName,settings)
-}
-</script>
 </head>
 <body>
     <div id="app">
@@ -72,19 +42,38 @@ tanggallengkap = namahari[hari] + ", " +tanggal + " " + namabulan[bulan] + " " +
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav">
                         &nbsp;
                        
+                        @if ( Auth::user()->type_user=='Admin' )
+                            <li><a href="{{ url('/jabatan') }}">Jabatan</a></li>
+                            <li><a href="{{ url('/golongan') }}">Golongan</a></li>
+                            <li><a href="{{ url('/pegawai') }}">Pegawai</a></li>
+                            <li><a href="{{ url('/tunjanganpegawai') }}">Tunjangan Pegawai</a></li>
+                            <li><a href="{{ url('/kategori') }}">Kategori Lembur</a></li>
+                            <li><a href="{{ url('/lembur') }}">Lembur Pegawai</a></li>
+                            <li><a href="{{ url('/penggajian') }}">Penggajian</a></li>
 
+                        @elseif ( Auth::user()->type_user=='Hrd' )
+                            <li><a href="{{ url('/pegawai') }}">Pegawai</a></li>
+                        @elseif ( Auth::user()->type_user=='Keuangan' )
+                        
+                            <li><a href="{{ url('/tunjanganpegawai') }}">Tunjangan Pegawai</a></li>
+                            <li><a href="{{ url('/kategori') }}">Kategori Lembur</a></li>
+                            <li><a href="{{ url('/lembur') }}">Lembur Pegawai</a></li>
+                            <li><a href="{{ url('/penggajian') }}">Penggajian</a></li>
+                            @endif
                                
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+                        
 
                         @if (Auth::guest())
-                            
+                            <li><a href="{{ url('/login') }}">Login</a></li>
+                            <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

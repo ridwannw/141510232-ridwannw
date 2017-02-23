@@ -17,9 +17,10 @@
 			<tr class="bg-info">
 				<th>No</th>
 				<th>NIP</th>
-				<th>User Id</th>
-				<th>Jabatan Id</th>
-				<th>Golongan Id</th>
+				<th>Nama Pegawai</th>
+				<th>Type User</th>
+				<th>Jabatan Pegawai</th>
+				<th>Golongan Pegawai</th>
 				<th>Photo</th>
 				
 				<th colspan="3"><center>Action</center></th>
@@ -35,6 +36,7 @@
 				<td>{{$no++}}</td>
 				<td>{{$pegawai1->nip}}</td>
 				<td>{{$pegawai1->User->name}}</td>
+				<td>{{$pegawai1->User->type_user}}</td>
 				<td>{{$pegawai1->Jabatan->nama_jabatan}}</td>
 				<td>{{$pegawai1->Golongan->nama_golongan}}</td>
 				<td><img src="{{ asset('gambar/'.$pegawai1->photo.'') }}" width="30" height="30"></td>

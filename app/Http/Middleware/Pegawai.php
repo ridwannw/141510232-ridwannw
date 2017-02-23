@@ -16,6 +16,7 @@ class Pegawai
     public function handle($request, Closure $next)
     {
          if (auth()->check() && $request->user()->type_user=='Pegawai') {
+           
             return $next($request);
         }
         else{

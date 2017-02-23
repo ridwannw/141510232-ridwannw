@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+
 class Admin
 {
     /**
@@ -18,16 +19,16 @@ class Admin
         if (auth()->check() && $request->user()->type_user=='Admin') {
             return $next($request);
         }
-      elseif (auth()->check() && $request->user()->type_user=='Hrd') {
-         return $next($request); 
-      }
-      elseif (auth()->check() && $request->user()->type_user=='Keuangan') {
-       return $next($request);   
-      }
-      elseif (auth()->check() && $request->user()->type_user=='Pegawai') {
-       return $next($request);   
-      }
-      else{
+      // elseif (auth()->check() && $request->user()->type_user=='Hrd') {
+      //    return $next($request); 
+      // }
+      // elseif (auth()->check() && $request->user()->type_user=='Keuangan') {
+      //  return $next($request);   
+      // }
+      // elseif (auth()->check() && $request->user()->type_user=='Pegawai') {
+      //  return $next($request);   
+      // }
+       else{
       
         return redirect()->guest('/akses');
        }

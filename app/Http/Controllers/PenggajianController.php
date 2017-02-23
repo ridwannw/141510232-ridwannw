@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Request;
+use App\Penggajian;
+use App\TunjanganPegawai;
+use App\Jabatan;
+use App\Golongan;
 class PenggajianController extends Controller
 {
     /**
@@ -14,6 +17,9 @@ class PenggajianController extends Controller
     public function index()
     {
         //
+        $gaji = Penggajian::all();
+        $tunp = TunjanganPegawai::all();
+        return view ('Penggajian.index',compact('gaji','tunp'));
     }
 
     /**
@@ -23,7 +29,10 @@ class PenggajianController extends Controller
      */
     public function create()
     {
-        //
+        $tunjanganp = TunjanganPegawai::all();
+        $jabatan = Jabatan::all();
+        $golongan = Golongan::all();
+        return view ('Penggajian.create',compact('tunjanganp'));
     }
 
     /**

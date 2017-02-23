@@ -47,10 +47,10 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-        'Admin' => \Illuminate\Auth\Middleware\Admin::class,
-        'Hrd' => \Illuminate\Auth\Middleware\Hrd::class,
-        'Keuangan' => \Illuminate\Auth\Middleware\Keuangan::class,
-        'Pegawai' => \Illuminate\Auth\Middleware\Pegawai::class,
+        'admin' => \App\Http\Middleware\admin::class,
+        'hrd' => \App\Http\Middleware\Hrd::class,
+        'keuangan' => \App\Http\Middleware\Keuangan::class,
+        'pegawai' => \App\Http\Middleware\Pegawai::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,

@@ -18,7 +18,7 @@ class PegawaiController extends Controller
      * @return \Illuminate\Http\Response
      */
      use RegistersUsers;
-
+      
 
     public function index()
     {
@@ -26,6 +26,7 @@ class PegawaiController extends Controller
         $jabatan =Jabatan::all();
         $golongan = Golongan::all();
         $pegawai =Pegawai::all();
+        $user = User::all();
         return view ('Pegawai.index',compact('jabatan','golongan','pegawai'));
     }
 
@@ -151,7 +152,6 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::find($id);
         $user = User::where('id',$pegawai->user_id)->delete();
         return redirect ('pegawai');
-
-        
+  
     }
 }

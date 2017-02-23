@@ -1,26 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('content')
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-black panel-primary">
-            
                 <div class="panel-heading ">Golongan</div>
-                <div class="panel-body">
-                <br>
+               <br>
                 <div align=right class="Tanggal"><h4><script language="JavaScript">document.write(tanggallengkap);</script></div></h4>
-                <a href="{{route('golongan.create')}}" class="btn btn-success">Tambah Data Golongan</a>
-                {{$golongan->links()}}
-
+                
+                <a href="{{route('golongan.create')}}" class="btn btn-success">Tambah Data</a>
 				
 	<br>
 	<br>
-
 	<table class="table table-bordered">
 		<thead>
-
 			<tr class="bg-info">
 				<th>No</th>
 				<th>Kode Golongan</th>
@@ -46,7 +40,7 @@
 					<form method="POST" action="{{route('golongan.destroy', $golongan1->id)}}">
 					{{csrf_field()}}
 					<input type="hidden" name="_method" value="DELETE">
-					<input class="btn btn-danger" onclick="return confirm('Yakin Mau Menghapus Golongan? ');" type="submit" value="Hapus"></form>
+					<input class="btn btn-danger" onclick="return confirm('Yakin Mau Menghapus Jabatan? ');" type="submit" value="Hapus"></form>
 				</center></td>
 			</tr>
 			@endforeach

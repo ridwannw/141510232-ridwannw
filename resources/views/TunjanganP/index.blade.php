@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 @section('content')
 
 <div class="container">
@@ -12,37 +12,47 @@
                     <a href="{{route('tunjanganpegawai.create')}}" class="btn btn-success">Tambah Data </a>
     <br>               
 	<br>
-	<table class="table table-bordered">
-		<thead>
-			<tr class="bg-info">
-				<th>No</th>
-				<th>Kode Tunjangan Id</th>
-				<th>Nama Pegawai</th>
-				<th colspan="3"><center>Action</center></th>
-			</tr>
-		</thead>
-		@php
-		$no = 1;
-		@endphp
-		@foreach($tunjanganp as $tunjanganp1)
-		<tbody>
-			<td>{{$no++}}</td>
-			<td>{{$tunjanganp1->Tunjangan->kode_tunjangan}}</td>
-			<td>{{$tunjanganp1->Pegawai->User->name}}</td>
-			<td><center><a href="{{route('tunjanganpegawai.edit', $tunjanganp1->id)}}" class="btn btn-primary">Edit</a></center></td>
-			<td><center>
-				<form method="POST" action="{{route('tunjanganpegawai.destroy', $tunjanganp1->id)}}">
-					{{csrf_field()}}
-					<input type="hidden" name="_method" value="DELETE">
-					<input class="btn btn-danger" onclick="return confirm('Yakin Mau Menghapus Data? ');" type="submit" value="Hapus"></form>
-				</center></td>
-		</tbody>
-		@endforeach
-		</table>
-	</div>
-</div>
-</div>
-</div>
+	<table class="table table-bordered ">
+		<tr class="bg-info">
+                            <th >No</th>
+                            <th>Kode Tunjangan</th>
+                            <th>Nip</th>
+                            <th>Nama Pegawai</th>
+                            <th colspan="2">Jabatan Dan Golongan</th>
+                            <th>Status</th>
+                            <th>Jumlah Anak</th>
+                            <th>Besaran Uang</th>
+                            <th colspan="3">Opsi</th>
+                        </tr>
+
+                        @php
+                            $no=1 ;
+                        @endphp
+
+                        @foreach($tunjanganp as $tunjanganp1)
+
+
+                            <tr>
+                                <td>{{$no++}}</td>
+                                <td>{{$tunjanganp1->tunjangan->kode_tunjangan}}</td>
+                                <td>{{$tunjanganp1->pegawai->nip}}</td>
+                                <td>{{$tunjanganp1->pegawai->User->name}}</td>
+                                <td>{{$tunjanganp1->pegawai->jabatan->nama_jabatan}}</td>
+                                <td>{{$tunjanganp1->pegawai->golongan->nama_golongan}}</td>
+                                <td>{{$tunjanganp1->tunjangan->status}}</td>
+                                <td>{{$tunjanganp1->tunjangan->jumlah_anak}} Anak</td>
+                                <?php $tunjanganp1->tunjangan->besaran_uang=number_format($tunjanganp1->tunjangan->besaran_uang,2,',','.'); ?>
+                                <td>Rp. {{$tunjanganp1->tunjangan->besaran_uang}}</td>
+                                <td><a class="btn btn-success form-control" href="{{route('tunjanganpegawai.edit',$tunjanganp1->id)}}">Edit </a></td>
+                                <td>
+                                     {!!Form::open(['method'=>'DELETE','route'=>['tunjanganpegawai.destroy',$tunjanganp1->id]])!!}
+                                    {!!Form::submit('Delete',['class'=>'btn btn-danger'])!!}
+                                    {!!Form::close()!!}
+                                </td>
+                            </tr>
+                        @endforeach
+                        
+                    </table>
 </div>
 
 @endsection
