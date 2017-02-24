@@ -113,6 +113,11 @@ class TunjanganPController extends Controller
     public function edit($id)
     {
         //
+        $golongan = Golongan::all();
+        $jabatan = Jabatan::all();
+        $pegawai = Pegawai::all();
+        $tunjanganp = TunjanganPegawai::find($id);
+        return view ('TunjanganP.edit',compact('tunjanganp','jabatan','golongan','pegawai'));
     }
 
     /**
@@ -125,6 +130,53 @@ class TunjanganPController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tunjanganpegawai=TunjanganPegawai::where('id',$id)->first();
+        if ($tunjanganpegawai->tunjangan->kode_tunjangan != Request('kode_tunjangan')) {
+            $rules =['kode_tunjangan' => 'required|unique:tunjangans',
+                    'pegawai_id' => 'required',
+                    'jumlah_anak' => 'required|numeric|min:0',
+                    'besaran_uang'=> 'required|numeric|min:0'];
+        }
+        elseif ($tunjanganpegawai->pegawai_id != Request('pegawai_id')) {
+            $rules =['kode_tunjangan' => 'required',
+                    'pegawai_id' => 'required|unique:tunjangan_pegawais',
+                    'jumlah_anak' => 'required|numeric|min:0',
+                    'besaran_uang'=> 'required|numeric|min:0'];
+        }
+        else
+        {
+            $rules =['pegawai_id' => 'required',
+                'kode_tunjangan' => 'required',
+                    'jumlah_anak' => 'required|numeric|min:0',
+                    'besaran_uang'=> 'required|numeric|min:0'];
+        }
+        $message =['pegawai_id.required' => 'Wajib Isi',
+                    'pegawai_id.unique' => 'Tunjangan Hanya Bisa 1 Kali',
+                    'kode_tunjangan.required' => 'Silahkan Input',
+                    'kode_tunjangan.unique' => 'Gunakan kode Lain',
+                    'jumlah_anak.required' => 'Silahkan Input',                    
+                    'jumlah_anak.numeric'=>'Input Numerik',
+                    'jumlah_anak.min'=>'Minimal 0',
+                    'besaran_uang.required'=>'Silahkan Input',
+                    'besaran_uang.numeric'=>'Input Numerik',
+                    'besaran_uang.min'=>'Minimal 0'];
+    
+            $validate=Validator::make(Input::all(),$rules,$message);
+            if ($validate->fails()) {
+                return redirect('tunjanganpegawai/'.$id.'/edit')->withErrors($validate)->withInput();
+            }
+            $tunjangan=new Tunjangan ;
+            $tunjangan = array('kode_tunjangan' =>Input::get('kode_tunjangan'),
+                                'status'=>Input::get('status'),
+                                'jumlah_anak'=>Input::get('jumlah_anak'),
+                                'besaran_uang'=>Input::get('besaran_uang'));
+            Tunjangan::where('id',$tunjanganpegawai->kode_tunjangan_id)->update($tunjangan);
+            
+            $update=Input::all();
+            $tunjanganp=TunjanganPegawai::find($id);
+            $tunjanganp->update($update);
+            return redirect('tunjanganpegawai');
+
     }
 
     /**

@@ -14,7 +14,7 @@ class GolonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+     public function __construct()
     {
         $this->middleware('admin');
     }
@@ -66,7 +66,7 @@ class GolonganController extends Controller
 
         $golongan = Request::all();
         Golongan::create($golongan);
-        return redirect('jabatan');
+        return redirect('golongan');
     }
 
     /**
