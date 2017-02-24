@@ -105,9 +105,38 @@ class JabatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jaba = Request::all();
+         $cariid = Golongan::find($id);
+        if($cariid->kode_jabatan == Request('kode_jabatan'))
+        {
+            $jabatan = array (
+                    'kode_jabatan'=>'required',
+                    'nama_jabatan'=>'required',
+                    'besaran_uang'=>'required',
+            );
+        }
+        else {
+            $jabatan = array (
+                    'kode_jabatan'=>'required|unique:jabatans',
+                    'nama_jabatan'=>'required',
+                    'besaran_uang'=>'required',
+            );
+        }
+        $pesan = array(
+            'kode_jabatan.unique' => 'Maaf Sudah Ada',
+            'kode_jabatan.required' =>'Harus Diisi broo',
+            'nama_jabatan.required' =>'Harus Diisi broo',
+            'besaran_uang.required' =>'Harus Diisi broo',
+            );
+
+        $validation = Validator::make(Request::all(), $jabatan, $pesan);
+        if($validation->fails())
+        {
+            return redirect('jabatan/'.$id.'/edit')->withErrors($validation)->withInput();
+        }
+
+        $gol = Request::all();
         $jabatan = Jabatan::find($id);
-        $jabatan->update($jaba);
+        $jabatan->update($gol);
         return redirect('jabatan');
     }
 

@@ -102,8 +102,8 @@ class GolonganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $id = Golongan::find($id);
-        if($id->kode_golongan == Request('kode_golongan'))
+        $cariid = Golongan::find($id);
+        if($cariid->kode_golongan == Request('kode_golongan'))
         {
             $golongan = array (
                     'kode_golongan'=>'required',
@@ -131,9 +131,9 @@ class GolonganController extends Controller
             return redirect('golongan/'.$id.'/edit')->withErrors($validation)->withInput();
         }
 
-        $golong = Request::all();
+        $gol = Request::all();
         $golongan = Golongan::find($id);
-        $golongan->update($golong);
+        $golongan->update($gol);
         return redirect('golongan');
     }
 
